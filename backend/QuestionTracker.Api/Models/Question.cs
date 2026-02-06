@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QuestionTracker.Api.Models;
 
@@ -9,20 +10,21 @@ public class Question
     [Required]
     public string Title { get; set; } = string.Empty;
 
-    [Required]
-    public string LeetCodeUrl { get; set; } = string.Empty;
+    public string? LeetCodeUrl { get; set; }
 
-    // personal notes / solution
     public string? Notes { get; set; }
 
-    // Checkbox in UI
-    public bool IsCompleted { get; set; } = false;
+    public bool IsCompleted { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    // =========================
+    // FOREIGN KEY TO USER
+    // =========================
+
+    [Required]
     public int UserId { get; set; }
-    // public User User { get; set; } = null!;
+
+    // Navigation property (EF Core)
     public User? User { get; set; }
-
-
 }
