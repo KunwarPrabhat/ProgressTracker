@@ -106,4 +106,20 @@ export async function saveSolution(questionId, solution) {
   return await res.json(); // should return updated question with isSolved=true
 }
 
+export async function deleteSolution(questionId) {
+  const res = await fetch(
+    `${API_BASE}/leetcode-questions/${questionId}/solution`,
+    {
+      method: "DELETE",
+      headers: getAuthHeaders()
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to delete solution");
+  }
+
+  return await res.json();
+}
+
 

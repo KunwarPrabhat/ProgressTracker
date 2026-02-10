@@ -135,6 +135,39 @@
   color: #f1f5f9;
 }
 
+/* DELETE BUTTON */
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.3);
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 15px -3px rgba(220, 38, 38, 0.4);
+  filter: brightness(1.1);
+}
+
+.delete-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.delete-btn:disabled {
+  background: #334155;
+  color: #64748b;
+  border-color: transparent;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 /* SAVE BUTTON (The Hero) */
 .modal-actions button:last-child {
   background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuestionTracker.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df751865d847b918deec8d983c113128c86f3fbe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdc6c1fab77d307111d43c98d660ddcfda07bbcd")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuestionTracker.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuestionTracker.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

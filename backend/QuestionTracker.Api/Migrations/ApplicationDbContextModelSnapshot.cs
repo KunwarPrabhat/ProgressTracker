@@ -58,7 +58,7 @@ namespace QuestionTracker.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LeetCodeQuestions");
+                    b.ToTable("LeetCodeQuestions", (string)null);
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.Question", b =>
@@ -92,7 +92,7 @@ namespace QuestionTracker.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.User", b =>
@@ -113,7 +113,7 @@ namespace QuestionTracker.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.UserQuestionProgress", b =>
@@ -145,7 +145,7 @@ namespace QuestionTracker.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserQuestionProgresses");
+                    b.ToTable("UserQuestionProgresses", (string)null);
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.Question", b =>

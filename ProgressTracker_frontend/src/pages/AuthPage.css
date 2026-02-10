@@ -1,66 +1,147 @@
+/* --- CONTAINER & BACKGROUND --- */
 .auth-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0f172a; /* dark bg */
+  /* subtle radial gradient for a "spotlight" effect */
+  background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+  padding: 20px; /* Prevents card from touching edges on mobile */
 }
 
+/* --- THE CARD (Glass Effect) --- */
 .auth-card {
-  background: #020617;
-  padding: 2.5rem;
-  border-radius: 12px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  color: white;
+  padding: 3rem 2.5rem; /* More breathing room */
+  
+  /* Glassmorphism Background */
+  background: rgba(15, 23, 42, 0.7); /* Semi-transparent dark */
+  backdrop-filter: blur(12px); /* Blur the background behind it */
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Border & Radius */
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle glassy border */
+  
+  /* Deep Shadow for Float Effect */
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.6), 
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    
+  color: #f8fafc;
+  animation: slideUp 0.4s ease-out;
 }
 
+/* --- HEADINGS --- */
 .auth-card h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  
+  /* Optional: Gradient Text */
+  background: linear-gradient(to right, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* Fallback for non-supporting browsers */
 }
 
+/* --- INPUTS --- */
 .auth-card input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  border: none;
-  background: #0f172a;
-  color: white;
+  padding: 14px 16px;
+  margin-bottom: 1.25rem;
+  box-sizing: border-box; /* CRITICAL FIX: Prevents width overflow */
+  
+  /* Input Styling */
+  background: rgba(2, 6, 23, 0.5); /* Darker inner background */
+  border: 1px solid #334155;
+  border-radius: 10px;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
+.auth-card input:focus {
+  outline: none;
+  border-color: #3b82f6; /* Blue highlight */
+  background: rgba(2, 6, 23, 0.9);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); /* Soft blue glow */
+}
+
+.auth-card input::placeholder {
+  color: #64748b;
+}
+
+/* --- BUTTONS --- */
 .auth-card button[type="submit"] {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 14px;
+  margin-top: 0.5rem;
+  
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   border: none;
-  background: #2563eb;
+  border-radius: 10px;
+  
   color: white;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
 }
 
 .auth-card button[type="submit"]:hover {
-  background: #1d4ed8;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: translateY(-1px); /* Slight lift */
+  box-shadow: 0 8px 12px -1px rgba(37, 99, 235, 0.3);
 }
 
+.auth-card button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* --- TOGGLE TEXT --- */
 .auth-toggle {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   text-align: center;
   font-size: 0.9rem;
+  color: #94a3b8;
 }
 
 .auth-toggle button {
   background: none;
   border: none;
   color: #60a5fa;
+  font-weight: 500;
   cursor: pointer;
+  padding: 0 4px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s;
 }
 
+.auth-toggle button:hover {
+  color: #93c5fd;
+}
+
+/* --- ERROR MESSAGES --- */
 .auth-error {
-  color: #f87171;
-  margin-bottom: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
   text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Animation Keyframes */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -19,24 +19,15 @@ function LeetCodeQuestions() {
   }, []);
 
   useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-                }
-            });
-            },
-            { threshold: 0.15 }
-        );
+      // Show all cards at the same time (no stagger/delay)
+      const cards = document.querySelectorAll(".lc-card");
+      cards.forEach((card) => {
+        card.style.transitionDelay = `0ms`;
+        card.classList.add("show");
+      });
 
-        const cards = document.querySelectorAll(".lc-card");
-        cards.forEach((card, index) => {
-            card.style.transitionDelay = `${index * 40}ms`; // stagger
-            observer.observe(card);
-        });
-
-        return () => observer.disconnect();
+      // No observer needed for uniform reveal
+      return;
     }, [questions]);
 
 

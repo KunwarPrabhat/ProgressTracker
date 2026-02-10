@@ -63,7 +63,7 @@ function AuthPage() {
         <div className="auth-toggle">
           {isLogin ? (
             <span>
-              Don’t have an account?{" "}
+              Don't have an account?{" "}
               <button onClick={() => setIsLogin(false)}>Register</button>
             </span>
           ) : (
