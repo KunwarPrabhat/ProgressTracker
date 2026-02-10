@@ -12,5 +12,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Question> Questions { get; set; }
     public DbSet<User> Users { get; set; }
 
+    public DbSet<LeetCodeQuestion> LeetCodeQuestions { get; set; }
+    public DbSet<UserQuestionProgress> UserQuestionProgresses { get; set; }
 
 }
