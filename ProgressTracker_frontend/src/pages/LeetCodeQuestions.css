@@ -1,0 +1,129 @@
+.lc-page h1 {
+  margin-bottom: 24px;
+}
+
+/* GRID — 4 per row, more breathing space */
+.lc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 24px;
+}
+
+/* CARD */
+.lc-card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 18px;
+  min-height: 150px;           /* Slightly smaller */
+  display: flex;
+  flex-direction: column;     /* For bottom buttons */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover */
+.lc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+}
+
+/* TITLE */
+.lc-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  color: #e5e7eb;
+}
+
+/* META */
+.lc-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+/* ACTIONS — PUSH TO BOTTOM */
+.lc-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;      /* KEY: pushes to bottom */
+}
+
+/* BUTTONS */
+.open-btn {
+  flex: 1;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.open-btn:hover {
+  background: #334155;
+}
+
+.solve-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #0d00fb, #0385ff);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.solve-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* DIFFICULTY COLORS */
+.lc-card.easy {
+  border-left: 5px solid #22c55e;
+}
+
+.lc-card.medium {
+  border-left: 5px solid #eab308;
+}
+
+.lc-card.hard {
+  border-left: 5px solid #ef4444;
+}
+
+/* SOLVED */
+.lc-card.solved {
+  background: #020617;
+  border-left: 5px solid #6b7280;
+  opacity: 0.65;
+}
+
+.solved-badge {
+  background: #374151;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  color: #d1d5db;
+}
+
+/* SCROLL ANIMATION */
+.hidden {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}

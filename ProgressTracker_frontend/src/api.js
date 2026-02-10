@@ -89,5 +89,21 @@ export async function register(email, password) {
   // ✅ Backend returns empty body
   return;
 }
+export async function saveSolution(questionId, solution) {
+  const res = await fetch(
+    `${API_BASE}/leetcode-questions/${questionId}/solution`,
+    {
+      method: "POST",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ solution })
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to save solution");
+  }
+
+  return await res.json(); // should return updated question with isSolved=true
+}
 
 

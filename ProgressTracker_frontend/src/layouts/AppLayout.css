@@ -1,0 +1,35 @@
+.app-shell {
+  min-height: 100vh;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.app-navbar {
+  height: 64px;
+  background: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.nav-center button,
+.logout-btn {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-center button:hover,
+.logout-btn:hover {
+  background: #1e293b;
+}
+
+.app-content {
+  padding: 24px;
+}

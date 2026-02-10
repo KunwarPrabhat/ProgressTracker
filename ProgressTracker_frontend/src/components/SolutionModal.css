@@ -1,0 +1,171 @@
+/* --- ANIMATIONS --- */
+@keyframes modalPop {
+  0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+  100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.4); }
+}
+
+/* --- BACKDROP --- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.65); /* Lighter opacity for glass effect */
+  backdrop-filter: blur(12px); /* Strong blur for depth */
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* --- MODAL CARD --- */
+.modal-card {
+  width: 800px;
+  max-width: 95%;
+  background: linear-gradient(145deg, #0f172a, #020617); /* Subtle gradient surface */
+  border: 1px solid rgba(148, 163, 184, 0.1); /* Thin, glassy border */
+  border-radius: 20px;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5), /* Deep shadow */
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset; /* Inner highlight */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* Apple-style easing */
+}
+
+/* --- HEADER --- */
+.modal-card h2 {
+  margin: 0;
+  padding: 24px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #f8fafc;
+  background: rgba(15, 23, 42, 0.5);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Optional: Add a small decorative icon via CSS before the title */
+.modal-card h2::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 18px;
+  background: #3b82f6; /* Accent color bar */
+  border-radius: 2px;
+  box-shadow: 0 0 10px #3b82f6;
+}
+
+/* --- TEXTAREA (THE EDITOR) --- */
+.modal-card textarea {
+  display: block;
+  box-sizing: border-box;
+  width: calc(100% - 64px); /* Full width minus margins */
+  margin: 24px 32px 10px 32px;
+  height: 350px;
+  
+  /* Editor Aesthetics */
+  background: #0b1120; /* Darker than card for contrast */
+  color: #e2e8f0;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 20px;
+  
+  /* Typography */
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+  transition: all 0.2s ease;
+  
+  /* Scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+.modal-card textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: #0f172a;
+  box-shadow: 
+    0 0 0 4px rgba(59, 130, 246, 0.1),
+    0 10px 20px rgba(0, 0, 0, 0.2); /* Lift effect on focus */
+}
+
+.modal-card textarea::placeholder {
+  color: #475569;
+  font-style: italic;
+}
+
+/* --- FOOTER / ACTIONS --- */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px 28px 32px;
+  background: transparent;
+}
+
+/* CANCEL BUTTON */
+.cancel-btn {
+  background: transparent;
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+  background: rgba(51, 65, 85, 0.3);
+  color: #f1f5f9;
+}
+
+/* SAVE BUTTON (The Hero) */
+.modal-actions button:last-child {
+  background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+  border: 1px solid rgba(134, 239, 172, 0.2); /* Slight inner border highlight */
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.3);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-actions button:last-child:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 15px -3px rgba(22, 163, 74, 0.4);
+  filter: brightness(1.1);
+}
+
+.modal-actions button:last-child:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.modal-actions button:last-child:disabled {
+  background: #334155;
+  color: #64748b;
+  border-color: transparent;
+  cursor: not-allowed;
+  box-shadow: none;
+}

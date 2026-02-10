@@ -1,53 +1,106 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getLeetCodeSqlQuestions } from "../api";
+import SolutionModal from "../components/SolutionModal";
+import "./LeetCodeQuestions.css";
 
 function LeetCodeQuestions() {
   const [questions, setQuestions] = useState([]);
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [activeQuestion, setActiveQuestion] = useState(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
+    async function load() {
+      const data = await getLeetCodeSqlQuestions();
+      setQuestions(data);
+      setLoading(false);
+    }
     load();
   }, []);
 
-  async function load() {
-    try {
-      const data = await getLeetCodeSqlQuestions();
-      setQuestions(data);
-    } catch (err) {
-      setError("You are not logged in or failed to load");
-    }
+  useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                }
+            });
+            },
+            { threshold: 0.15 }
+        );
+
+        const cards = document.querySelectorAll(".lc-card");
+        cards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 40}ms`; // stagger
+            observer.observe(card);
+        });
+
+        return () => observer.disconnect();
+    }, [questions]);
+
+
+  function getCardClass(q) {
+    if (q.userProgress && q.userProgress.length > 0) return "lc-card solved";
+    if (q.difficulty === "Easy") return "lc-card easy";
+    if (q.difficulty === "Medium") return "lc-card medium";
+    if (q.difficulty === "Hard") return "lc-card hard";
+    return "lc-card";
   }
 
+  function handleSolved(updated) {
+    setQuestions((prev) =>
+      prev.map((q) => (q.id === updated.id ? updated : q))
+    );
+    setActiveQuestion(null);
+  }
+
+  if (loading) return <div>Loading...</div>;
+
   return (
-    <div>
-      <h2>LeetCode SQL 50</h2>
+    <div className="lc-page">
+      <h1>LeetCode SQL</h1>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      <div className="lc-grid">
+        {questions.map((q, i) => (
+          <div
+            key={q.id}
+            ref={(el) => (cardRefs.current[i] = el)}
+            className={`${getCardClass(q)} hidden`}
+          >
+            <div className="lc-title">{q.title}</div>
 
-      <table border="1" cellPadding="8">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Difficulty</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          {questions.map((q) => (
-            <tr key={q.id}>
-              <td>{q.id}</td>
-              <td>{q.title}</td>
-              <td>{q.difficulty}</td>
-              <td>
-                <a href={q.url} target="_blank" rel="noreferrer">
-                  Open
-                </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <div className="lc-meta">
+              <span className="difficulty">{q.difficulty}</span>
+              {q.userProgress && q.userProgress.length > 0 && <span className="solved-badge">Solved</span>}
+            </div>
+
+            <div className="lc-actions">
+              <button
+                className="open-btn"
+                onClick={() => window.open(q.leetCodeUrl, "_blank")}
+              >
+                Open
+              </button>
+
+              <button
+                className="solve-btn"
+                onClick={() => setActiveQuestion(q)}
+              >
+                {q.userProgress && q.userProgress.length > 0 ? "View Solution" : "Add Solution"}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {activeQuestion && (
+        <SolutionModal
+          question={activeQuestion}
+          onClose={() => setActiveQuestion(null)}
+          onSaved={handleSolved}
+        />
+      )}
     </div>
   );
 }

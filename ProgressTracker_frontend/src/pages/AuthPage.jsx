@@ -19,7 +19,8 @@ function AuthPage() {
     try {
       if (isLogin) {
         await login(email, password);
-        navigate("/questions");
+        navigate("/app/leetcode");
+
       } else {
         await register(email, password);
         alert("Registered! You can now login.");
