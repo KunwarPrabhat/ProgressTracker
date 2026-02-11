@@ -16,6 +16,19 @@ function AuthPage() {
   const [step, setStep] = useState("auth");
   const [otp, setOtp] = useState("");
 
+  const [view, setView] = useState("login");
+  const [animating, setAnimating] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const changeView = (nextView) => {
+    setAnimating(true);
+
+    setTimeout(() => {
+      setView(nextView);
+      setAnimating(false);
+    }, 300);
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
@@ -25,8 +38,20 @@ function AuthPage() {
         await login(email, password);
         navigate("/app/leetcode");
       } else {
+        // await registerStart(email, password);
+        // setStep("otp");
+        setLoading(true);
+
         await registerStart(email, password);
-        setStep("otp"); // 👉 GO TO OTP SCREEN
+
+        // trigger slide animation
+        setAnimating(true);
+
+        setTimeout(() => {
+          setStep("otp");
+          setAnimating(false);
+          setLoading(false);
+        }, 300);
       }
     } catch (err) {
       setError(err.message || "Server error");
@@ -40,8 +65,13 @@ function AuthPage() {
     try {
       await verifyOtp(email, otp);
       alert("Email verified! You can now login.");
-      setStep("auth");
-      setIsLogin(true);
+      setAnimating(true);
+
+      setTimeout(() => {
+        setStep("auth");
+        setIsLogin(true);
+        setAnimating(false);
+      }, 300);
     } catch (err) {
       setError(err.message || "Invalid code");
     }
@@ -49,8 +79,10 @@ function AuthPage() {
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
-        <h2>{isLogin ? "Login" : "Register"}</h2>
+      <div className={`auth-card ${animating ? "slide-out" : "slide-in"}`}>
+        <h2 className={animating ? "fade-out" : "fade-in"}>
+          {isLogin ? "Login" : "Register"}
+        </h2>
 
         {step === "auth" && (
           <form onSubmit={handleSubmit}>
@@ -72,8 +104,14 @@ function AuthPage() {
 
             {error && <div className="auth-error">{error}</div>}
 
-            <button type="submit">
-              {isLogin ? "Login" : "Create Account"}
+            <button type="submit" disabled={loading}>
+              {loading
+                ? isLogin
+                  ? "Logging in..."
+                  : "Sending OTP..."
+                : isLogin
+                  ? "Login"
+                  : "Create Account"}
             </button>
           </form>
         )}
@@ -100,12 +138,32 @@ function AuthPage() {
           {isLogin ? (
             <span>
               Don't have an account?{" "}
-              <button onClick={() => setIsLogin(false)}>Register</button>
+              <button
+                onClick={() => {
+                  setAnimating(true);
+                  setTimeout(() => {
+                    setIsLogin(false);
+                    setAnimating(false);
+                  }, 300);
+                }}
+              >
+                Register
+              </button>
             </span>
           ) : (
             <span>
               Already have an account?{" "}
-              <button onClick={() => setIsLogin(true)}>Login</button>
+              <button
+                onClick={() => {
+                  setAnimating(true);
+                  setTimeout(() => {
+                    setIsLogin(true);
+                    setAnimating(false);
+                  }, 300);
+                }}
+              >
+                Login
+              </button>
             </span>
           )}
         </div>

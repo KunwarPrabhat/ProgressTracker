@@ -4,9 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* subtle radial gradient for a "spotlight" effect */
-  background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
-  padding: 20px; /* Prevents card from touching edges on mobile */
+  padding: 24px; /* Prevents card from touching edges on mobile */
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #071026 0%, #041026 100%); /* flat, simple background */
 }
 
 /* --- THE CARD (Glass Effect) --- */
@@ -14,23 +15,14 @@
   width: 100%;
   max-width: 400px;
   padding: 3rem 2.5rem; /* More breathing room */
-  
-  /* Glassmorphism Background */
-  background: rgba(15, 23, 42, 0.7); /* Semi-transparent dark */
-  backdrop-filter: blur(12px); /* Blur the background behind it */
-  -webkit-backdrop-filter: blur(12px);
-  
-  /* Border & Radius */
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle glassy border */
-  
-  /* Deep Shadow for Float Effect */
-  box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.6), 
-    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-    
-  color: #f8fafc;
-  animation: slideUp 0.4s ease-out;
+
+  /* Flat card background */
+  background: #003144; /* solid, slightly lighter than page */
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #e6eef8;
+  box-shadow: none; /* flat aesthetic: no heavy shadows */
+  animation: slideUp 0.32s ease-out;
 }
 
 /* --- HEADINGS --- */
@@ -40,13 +32,17 @@
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  
-  /* Optional: Gradient Text */
-  background: linear-gradient(to right, #fff, #94a3b8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent; /* Fallback for non-supporting browsers */
+  color: #f1f7fb;
+}
+
+.auth-card h2::after {
+  content: "";
+  display: block;
+  margin: 10px auto 0;
+  width: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: #203a52; /* flat accent */
 }
 
 /* --- INPUTS --- */
@@ -57,19 +53,18 @@
   box-sizing: border-box; /* CRITICAL FIX: Prevents width overflow */
   
   /* Input Styling */
-  background: rgba(2, 6, 23, 0.5); /* Darker inner background */
-  border: 1px solid #334155;
-  border-radius: 10px;
-  color: #e2e8f0;
+  background: #051826;
+  border: 1px solid rgba(148,163,184,0.06);
+  border-radius: 8px;
+  color: #dbeeff;
   font-size: 0.95rem;
-  transition: all 0.2s ease;
+  transition: border-color 0.14s ease, background 0.14s ease;
 }
 
 .auth-card input:focus {
   outline: none;
-  border-color: #3b82f6; /* Blue highlight */
-  background: rgba(2, 6, 23, 0.9);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); /* Soft blue glow */
+  border-color: rgba(96,165,250,0.9); /* simple flat border highlight */
+  background: #062433;
 }
 
 .auth-card input::placeholder {
@@ -82,7 +77,7 @@
   padding: 14px;
   margin-top: 0.5rem;
   
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #7c3aed 100%);
   border: none;
   border-radius: 10px;
   
@@ -140,8 +135,85 @@
   font-size: 0.9rem;
 }
 
+/* Small divider element for alternate actions */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 8px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(148,163,184,0.06), transparent);
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .auth-card { padding: 2.25rem 1.5rem; border-radius: 14px; }
+  .auth-card h2 { font-size: 1.5rem; }
+}
+
 /* Animation Keyframes */
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+.slide-in {
+  animation: slideIn 0.3s ease forwards;
+}
+
+.slide-out {
+  animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes floatBlobA {
+  0% { transform: translate3d(0,0,0) scale(1); opacity: 0.9; }
+  50% { transform: translate3d(24px,18px,0) scale(1.02); opacity: 0.75; }
+  100% { transform: translate3d(-12px,34px,0) scale(1); opacity: 0.85; }
+}
+
+@keyframes floatBlobB {
+  0% { transform: translate3d(0,0,0) scale(1); opacity: 0.8; }
+  50% { transform: translate3d(-28px,-22px,0) scale(1.06); opacity: 0.65; }
+  100% { transform: translate3d(16px,-8px,0) scale(1); opacity: 0.75; }
+}
+
+@keyframes slideOut {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-40px); }
+}
+
+.auth-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
