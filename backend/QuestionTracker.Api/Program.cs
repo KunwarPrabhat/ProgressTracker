@@ -6,8 +6,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<EmailService>();
+
 // Add controllers (THIS is required for your QuestionsController)
 builder.Services.AddControllers();
+// (no email service registered)
 
 // Swagger for API testing
 builder.Services.AddEndpointsApiExplorer();

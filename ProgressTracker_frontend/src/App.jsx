@@ -10,6 +10,7 @@ function App() {
 
         {/* Public Auth Page */}
         <Route path="/" element={<AuthPage />} />
+        
 
         {/* Protected App Area */}
         <Route

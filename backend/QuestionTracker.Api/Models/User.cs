@@ -14,4 +14,11 @@ public class User
     public string PasswordHash { get; set; } = string.Empty;
 
     public List<Question> Questions { get; set; } = new();
+
+    public bool IsEmailVerified { get; set; } = false;
+
+    public string? EmailVerificationCode { get; set; }
+
+    public DateTime? EmailVerificationExpiry { get; set; }
+
 }

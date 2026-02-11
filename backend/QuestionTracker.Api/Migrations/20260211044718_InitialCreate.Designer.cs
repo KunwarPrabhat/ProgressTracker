@@ -12,8 +12,8 @@ using QuestionTracker.Api.Data;
 namespace QuestionTracker.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260210050802_AddLeetCodeQuestions")]
-    partial class AddLeetCodeQuestions
+    [Migration("20260211044718_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,6 +109,15 @@ namespace QuestionTracker.Api.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("EmailVerificationCode")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("EmailVerificationExpiry")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsEmailVerified")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()

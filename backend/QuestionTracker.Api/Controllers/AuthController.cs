@@ -14,27 +14,76 @@ namespace QuestionTracker.Api.Controllers;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
+    private static readonly HashSet<string> AllowedEmailDomains = new()
+    {
+        "gmail.com",
+        "outlook.com",
+        "hotmail.com",
+        "yahoo.com",
+        "proton.me",
+        "protonmail.com",
+        "icloud.com",
+        "zoho.com",
+        "rediffmail.com"
+    };
+
     private readonly ApplicationDbContext _db;
     private readonly IConfiguration _config;
-    public AuthController(ApplicationDbContext db, IConfiguration config)
+
+    private readonly EmailService _emailService;
+
+    public AuthController(ApplicationDbContext db, IConfiguration config, EmailService emailService)
     {
         _db = db;
         _config = config;
+        _emailService = emailService;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(User user)
+    [HttpPost("register-start")]
+    public async Task<IActionResult> RegisterStart(User user)
     {
         if (await _db.Users.AnyAsync(u => u.Email == user.Email))
             return BadRequest("User already exists");
 
         user.PasswordHash = HashPassword(user.PasswordHash);
+        user.IsEmailVerified = false;
+        user.EmailVerificationCode = GenerateOtp();
+        user.EmailVerificationExpiry = DateTime.UtcNow.AddMinutes(10);
 
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
 
+        await _emailService.SendVerificationCode(
+            user.Email,
+            user.EmailVerificationCode
+        );
+
         return Ok();
     }
+
+    [HttpPost("verify-otp")]
+    public async Task<IActionResult> VerifyOtp(VerifyOtpDto dto)
+    {
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+        if (user == null)
+            return BadRequest("Invalid email");
+
+        if (user.EmailVerificationCode != dto.Code)
+            return BadRequest("Invalid code");
+
+        if (user.EmailVerificationExpiry < DateTime.UtcNow)
+            return BadRequest("Code expired");
+
+        user.IsEmailVerified = true;
+        user.EmailVerificationCode = null;
+        user.EmailVerificationExpiry = null;
+
+        await _db.SaveChangesAsync();
+
+        return Ok();
+    }
+
 
     [HttpPost("login")]
     public async Task<ActionResult<User>> Login(User login)
@@ -44,6 +93,9 @@ public class AuthController : ControllerBase
 
         if (user == null)
             return Unauthorized();
+
+        if (!user.IsEmailVerified)
+            return Unauthorized("Email not verified");
 
         var hash = HashPassword(login.PasswordHash);
 
@@ -58,8 +110,8 @@ public class AuthController : ControllerBase
             userId = user.Id,
             email = user.Email
         });
-
     }
+
 
     private string HashPassword(string password)
     {
@@ -92,5 +144,11 @@ public class AuthController : ControllerBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+    private string GenerateOtp()
+    {
+        var rnd = new Random();
+        return rnd.Next(100000, 999999).ToString();
+    }
+
 
 }

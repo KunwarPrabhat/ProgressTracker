@@ -58,7 +58,7 @@ namespace QuestionTracker.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LeetCodeQuestions", (string)null);
+                    b.ToTable("LeetCodeQuestions");
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.Question", b =>
@@ -92,7 +92,7 @@ namespace QuestionTracker.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.User", b =>
@@ -107,13 +107,22 @@ namespace QuestionTracker.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("EmailVerificationCode")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("EmailVerificationExpiry")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsEmailVerified")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.UserQuestionProgress", b =>
@@ -145,7 +154,7 @@ namespace QuestionTracker.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserQuestionProgresses", (string)null);
+                    b.ToTable("UserQuestionProgresses");
                 });
 
             modelBuilder.Entity("QuestionTracker.Api.Models.Question", b =>

@@ -85,8 +85,7 @@ export async function register(email, password) {
     console.error("Register failed:", text);
     throw new Error(text || "Registration failed");
   }
-
-  // ✅ Backend returns empty body
+  // Backend returns empty body
   return;
 }
 export async function saveSolution(questionId, solution) {
@@ -121,5 +120,32 @@ export async function deleteSolution(questionId) {
 
   return await res.json();
 }
+
+export async function registerStart(email, password) {
+  const res = await fetch(`${API_BASE}/Auth/register-start`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, passwordHash: password })
+  });
+
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(t);
+  }
+}
+
+export async function verifyOtp(email, code) {
+  const res = await fetch(`${API_BASE}/Auth/verify-otp`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, code })
+  });
+
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(t);
+  }
+}
+
 
 
