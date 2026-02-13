@@ -1,4 +1,10 @@
-const API_BASE = "http://localhost:5089/api";
+// const API_BASE = "http://localhost:5089/api";
+// const API_BASE = `${import.meta.env.VITE_API_URL}/api`;
+
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "ERROR_NO_ENV";
+
 
 function getAuthHeaders() {
   const token = localStorage.getItem("token");
