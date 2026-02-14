@@ -1,0 +1,76 @@
+/* Responsive overrides — added separately so original CSS files remain unchanged */
+
+/* Navbar and layout adjustments */
+@media (max-width: 600px) {
+  .app-navbar {
+    height: auto;
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .app-navbar .nav-left,
+  .app-navbar .nav-center,
+  .app-navbar .nav-right {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+  }
+
+  .app-navbar .nav-left { justify-content: flex-start; }
+  .app-navbar .nav-right { justify-content: flex-end; }
+
+  .nav-center button,
+  .logout-btn {
+    width: 100%;
+    padding: 10px 12px;
+    box-sizing: border-box;
+  }
+
+  .app-content {
+    padding: 12px;
+  }
+}
+
+/* Grid and cards for LeetCode list */
+@media (max-width: 1200px) {
+  .lc-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+}
+
+@media (max-width: 900px) {
+  .lc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .lc-card { padding: 14px; min-height: 120px; }
+}
+
+@media (max-width: 480px) {
+  .lc-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .lc-card { padding: 12px; min-height: 110px; border-radius: 10px; }
+
+  .lc-actions { flex-direction: column; gap: 8px; }
+  .open-btn, .solve-btn {
+    flex: none;
+    width: 100%;
+  }
+
+  .lc-title { font-size: 15px; }
+}
+
+/* Modal responsiveness */
+@media (max-width: 768px) {
+  .modal-card { width: 96%; max-width: 96%; border-radius: 14px; }
+  .modal-card textarea { width: calc(100% - 48px); height: 260px; margin: 18px 24px; }
+  .modal-actions { flex-direction: column-reverse; align-items: stretch; gap: 10px; padding: 12px 20px 18px 20px; }
+  .modal-actions button { width: 100%; }
+}
+
+/* Improve touch targets globally on small screens */
+@media (max-width: 600px) {
+  button, input, textarea {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+}
