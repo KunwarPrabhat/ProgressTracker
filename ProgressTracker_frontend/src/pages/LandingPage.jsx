@@ -9,9 +9,7 @@ export default function LandingPage() {
           <h1 className="landing-logo">SQLMaster</h1>
         </div>
         <nav className="landing-center" />
-        <div className="landing-right">
-          <Link to="/auth" className="cta">Get Started</Link>
-        </div>
+        <div className="landing-right" />
       </header>
 
       <main className="landing-hero">
@@ -21,7 +19,6 @@ export default function LandingPage() {
 
           <div className="hero-cta-row">
             <Link to="/app/leetcode" className="hero-btn">Open LeetCode SQL</Link>
-            <Link to="/starter-dsa" className="hero-btn alt">Starter DSA</Link>
           </div>
         </div>
 
