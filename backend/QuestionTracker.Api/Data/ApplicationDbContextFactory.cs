@@ -10,7 +10,7 @@ public class ApplicationDbContextFactory
 {
     public ApplicationDbContext CreateDbContext(string[] args)
     {
-        // Build config to read appsettings.json
+        // Load application configuration and read the DefaultConnection string
         var config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")

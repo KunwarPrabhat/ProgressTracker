@@ -8,9 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<EmailService>();
 
-// Add controllers (THIS is required for your QuestionsController)
+// Register controllers to enable API endpoints (e.g., QuestionsController)
 builder.Services.AddControllers();
-// (no email service registered)
+// Register EmailService for sending verification emails
 
 // Swagger for API testing
 builder.Services.AddEndpointsApiExplorer();
@@ -71,7 +71,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-    //for preventing cors
+    // Configure CORS policy to allow requests from the frontend development hosts
     builder.Services.AddCors(options =>
     {
         options.AddPolicy("AllowFrontend",
@@ -93,20 +93,20 @@ using (var scope = app.Services.CreateScope())
 }
 
 
-// Dev tools
+// Enable development-only middleware (Swagger UI, etc.)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//for preventing cors
+// Enable the configured CORS policy
 app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Map controllers (THIS exposes /api/questions)
+// Map controller routes to expose API endpoints (e.g., /api/questions)
 app.MapControllers();
 
 app.Run();

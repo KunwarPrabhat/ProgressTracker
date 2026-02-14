@@ -9,7 +9,7 @@ public class User
     [Required]
     public string Email { get; set; } = string.Empty;
 
-    // For now plain text (later we hash + auth properly)
+    // Stored as a simple placeholder for now; replace with a secure hashed password and full authentication flow in production
     [Required]
     public string PasswordHash { get; set; } = string.Empty;
 

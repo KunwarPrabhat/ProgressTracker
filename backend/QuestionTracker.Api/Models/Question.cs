@@ -19,12 +19,12 @@ public class Question
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     // =========================
-    // FOREIGN KEY TO USER
+    // Foreign key to the owning user
     // =========================
 
     [Required]
     public int UserId { get; set; }
 
-    // Navigation property (EF Core)
+    // Navigation property to the owning user (EF Core)
     public User? User { get; set; }
 }

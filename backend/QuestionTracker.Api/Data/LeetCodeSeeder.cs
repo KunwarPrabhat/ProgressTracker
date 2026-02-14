@@ -1,5 +1,5 @@
 using QuestionTracker.Api.Data;
-using QuestionTracker.Api.Models; // Ensure this namespace matches your Entity location
+using QuestionTracker.Api.Models; // Import models namespace for the entity types used below
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +7,7 @@ public static class LeetCodeSeeder
 {
     public static void SeedSql50(ApplicationDbContext db)
     {
-        // Prevent duplicate seeding
+        // Skip seeding if SQL category entries already exist
         if (db.LeetCodeQuestions.Any(q => q.Category == "SQL"))
             return;
 

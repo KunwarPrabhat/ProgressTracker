@@ -20,7 +20,7 @@ public class LeetCodeQuestionsController : ControllerBase
     }
 
     // =========================
-    // GET SQL 50
+    // Retrieve the seeded SQL-50 LeetCode questions for the current user
     // GET: api/leetcode-questions/sql
     // =========================
     [HttpGet("sql")]
@@ -93,7 +93,7 @@ public class LeetCodeQuestionsController : ControllerBase
 
         await _db.SaveChangesAsync();
 
-        // Return the question including only this user's progress entry
+        // Return the question, including only the current user's progress entry
         var updated = await _db.LeetCodeQuestions
             .Where(q => q.Id == id)
             .Select(q => new

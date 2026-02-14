@@ -20,7 +20,7 @@ public class UserQuestionProgressController : ControllerBase
     }
 
     // =========================
-    // TOGGLE COMPLETE
+    // Toggle completion status for a user's LeetCode question progress
     // POST: api/user-question-progress/{leetCodeQuestionId}/toggle-complete
     // =========================
     [HttpPost("{leetCodeQuestionId}/toggle-complete")]
