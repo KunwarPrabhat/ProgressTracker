@@ -13,6 +13,7 @@ function AppLayout() {
     <div className="app-shell">
       <nav className="app-navbar">
         <div className="nav-left">
+          <button className="back-btn" onClick={() => navigate(-1)} aria-label="Go back">← Back</button>
           <h2 className="logo">SQLMaster</h2>
         </div>
 

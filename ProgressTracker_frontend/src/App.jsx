@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import LandingPage from "./pages/LandingPage";
 import StarterDSA from "./pages/StarterDSA";
@@ -12,10 +12,8 @@ function App() {
   return (
       <Routes>
 
-        {/* Public Landing Page */}
-        <Route path="/" element={<LandingPage />} />
-        {/* Public Auth Page */}
-        <Route path="/auth" element={<AuthPage />} />
+        {/* Public Auth Page (default landing) */}
+        <Route path="/" element={<AuthPage />} />
         
 
         {/* Protected App Area */}
@@ -26,7 +24,7 @@ function App() {
             <AppLayout />
           </ProtectedRoute>
         }>
-          <Route index element={<StarterDSA />} />
+          <Route index element={<LandingPage />} />
           <Route path="leetcode" element={<LeetCodeQuestions />} />
         </Route>
 
