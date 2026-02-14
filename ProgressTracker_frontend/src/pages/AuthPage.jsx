@@ -36,7 +36,8 @@ function AuthPage() {
     try {
       if (isLogin) {
         await login(email, password);
-        navigate("/app/leetcode");
+        // After successful login, send user to the Starter DSA area
+        navigate("/app");
       } else {
         // await registerStart(email, password);
         // setStep("otp");
