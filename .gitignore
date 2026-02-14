@@ -3,3 +3,6 @@ appsettings.Development.json
 
 # Optional safety
 **/appsettings.Development.json
+
+.env
+.env.local
